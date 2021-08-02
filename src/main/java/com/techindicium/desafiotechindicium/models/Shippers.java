@@ -1,0 +1,18 @@
+package com.techindicium.desafiotechindicium.models;
+
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import java.io.Serializable;
+
+@Data
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
+public class Shippers implements Serializable {
+    int shipper_id;
+    String company_name;
+    String phone;
+}
