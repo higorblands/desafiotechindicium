@@ -5,6 +5,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
 import java.io.Serializable;
 import java.sql.Date;
 
@@ -12,7 +14,9 @@ import java.sql.Date;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
+@Entity
 public class Employees implements Serializable {
+    @Id
     int employee_id;
     String last_name;
     String first_name;
@@ -31,5 +35,4 @@ public class Employees implements Serializable {
     String notes;
     int reports_to;
     String photo_path;
-
 }
