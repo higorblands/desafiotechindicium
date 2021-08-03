@@ -122,8 +122,8 @@ public class DesafioTechIndiciumService implements CommandLineRunner {
         List<Employee_Territories> employee_territoriesList = employee_territoriesRepository.findAll();
         generateJsonFileEmployee_territories.execute(employee_territoriesList, localDate);
 
-        List<Employees> employeesList = employeesRepository.findAll();
-        generateJsonFileEmployees.execute(employeesList, localDate);
+        //List<Employees> employeesList = employeesRepository.findAll();
+        //generateJsonFileEmployees.execute(employeesList, localDate);
 
         List<Orders> ordersList = ordersRepository.findAll();
         generateJsonFileOrders.execute(ordersList, localDate);
