@@ -1,6 +1,5 @@
 package com.techindicium.desafiotechindicium.usecase;
 
-import com.techindicium.desafiotechindicium.models.Territories;
 import com.techindicium.desafiotechindicium.models.Us_States;
 
 import java.util.List;

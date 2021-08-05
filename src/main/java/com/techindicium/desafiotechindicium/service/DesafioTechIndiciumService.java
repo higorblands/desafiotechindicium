@@ -1,29 +1,30 @@
 package com.techindicium.desafiotechindicium.service;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.dataformat.csv.CsvMapper;
-import com.fasterxml.jackson.dataformat.csv.CsvSchema;
+import com.mongodb.client.*;
 import com.techindicium.desafiotechindicium.models.*;
 import com.techindicium.desafiotechindicium.repository.*;
 import com.techindicium.desafiotechindicium.usecase.*;
 import com.techindicium.desafiotechindicium.usecase.impl.*;
 import lombok.SneakyThrows;
+import org.bson.Document;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
-import java.io.File;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.time.LocalDate;
+import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 import java.util.Scanner;
 
 @Component
 public class DesafioTechIndiciumService implements CommandLineRunner {
 
     private static final Logger logger = LoggerFactory.getLogger(DesafioTechIndiciumService.class);
+
     @Autowired
     CategoriesRepository categoriesRepository;
     @Autowired
@@ -64,6 +65,7 @@ public class DesafioTechIndiciumService implements CommandLineRunner {
     GenerateJsonFileSuppliers generateJsonFileSuppliers = new GenerateJsonFileSuppliersImpl();
     GenerateJsonFileTerritories generateJsonFileTerritories = new GenerateJsonFileTerritoriesImpl();
     GenerateJsonFileUs_States generateJsonFileUs_states = new GenerateJsonFileUs_StatesImpl();
+    GenerateJsonFileFromCsvFile generateJsonFileFromCsvFile = new GenerateJsonFileFromCsvFileImpl();
 
     @SneakyThrows
     public void run(String... args) {
@@ -99,6 +101,8 @@ public class DesafioTechIndiciumService implements CommandLineRunner {
             myObjStartProgram = new Scanner(System.in);
             resultInputStartProgram = myObjStartProgram.nextLine();
         }
+
+
         logger.info("Programa finalizado ! ");
 
     }
@@ -122,14 +126,16 @@ public class DesafioTechIndiciumService implements CommandLineRunner {
         List<Employee_Territories> employee_territoriesList = employee_territoriesRepository.findAll();
         generateJsonFileEmployee_territories.execute(employee_territoriesList, localDate);
 
-        //List<Employees> employeesList = employeesRepository.findAll();
-        //generateJsonFileEmployees.execute(employeesList, localDate);
+        List<Employees> employeesList = employeesRepository.findAll();
+        generateJsonFileEmployees.execute(employeesList, localDate);
 
         List<Orders> ordersList = ordersRepository.findAll();
         generateJsonFileOrders.execute(ordersList, localDate);
 
+        generateJsonFileFromCsvFile.execute(localDate);
+
         List<Products> productsList = productsRepository.findAll();
-        generateJsonFileProducts.execute(productsList,  localDate);
+        generateJsonFileProducts.execute(productsList, localDate);
 
         List<Region> regionList = regionRepository.findAll();
         generateJsonFileRegion.execute(regionList, localDate);
@@ -146,21 +152,16 @@ public class DesafioTechIndiciumService implements CommandLineRunner {
         List<Us_States> us_statesList = us_statesRepository.findAll();
         generateJsonFileUs_states.execute(us_statesList, localDate);
 
-        generateCsvToJsonFile(localDate);
+        String file = ("data\\csv-" + localDate + "-order_details.json");
+        String json = readFileAsString(file);
 
 
     }
 
     @SneakyThrows
-    private void generateCsvToJsonFile(String localDate) {
-        CsvMapper csvMapper = new CsvMapper();
-        ObjectMapper mapper = new ObjectMapper();
-
-        File input = new File("data\\order_details.csv");
-        File output = new File("data\\csv-" + localDate + "-order_details.json");
-
-        CsvSchema csvSchema = CsvSchema.builder().setUseHeader(true).build();
-        List<Object> readAll = csvMapper.readerFor(Map.class).with(csvSchema).readValues(input).readAll();
-        mapper.writerWithDefaultPrettyPrinter().writeValue(output, readAll);
+    private String readFileAsString(String file) {
+        return new String(Files.readAllBytes(Paths.get(file)));
     }
+
+
 }

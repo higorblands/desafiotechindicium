@@ -5,7 +5,6 @@ import com.techindicium.desafiotechindicium.models.Orders;
 import com.techindicium.desafiotechindicium.usecase.GenerateJsonFileOrders;
 import lombok.SneakyThrows;
 import org.json.JSONArray;
-import org.json.JSONObject;
 
 import java.io.FileWriter;
 import java.io.IOException;
@@ -16,18 +15,13 @@ public class GenerateJsonFileOrdersImpl implements GenerateJsonFileOrders {
     @Override
     public String execute(List<Orders> ordersList, String date) {
         JSONArray jsonArray = new JSONArray();
-        JSONObject jSONObject = new JSONObject();
-
 
         ordersList.stream().forEach(orders -> {
             Gson gson = new Gson();
             String jsonString = gson.toJson(orders);
             jsonArray.put(jsonString);
         });
-        jSONObject.put("orders", jsonArray);
-
-        String jsonFormattedString = jSONObject.toString().replace("\\\"", "\"");
-        String finalJSON = jsonFormattedString.replace("\"{", "{").replace("}\"", "}");
+        String finalJSON = new Gson().toJson(ordersList);
 
 
         try (FileWriter file = new FileWriter("data\\postgres-" + date + "-orders.json")) {

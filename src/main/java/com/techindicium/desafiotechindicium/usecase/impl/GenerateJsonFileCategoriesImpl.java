@@ -5,7 +5,6 @@ import com.techindicium.desafiotechindicium.models.Categories;
 import com.techindicium.desafiotechindicium.usecase.GenerateJsonFileCategories;
 import lombok.SneakyThrows;
 import org.json.JSONArray;
-import org.json.JSONObject;
 
 import java.io.FileWriter;
 import java.io.IOException;
@@ -16,19 +15,13 @@ public class GenerateJsonFileCategoriesImpl implements GenerateJsonFileCategorie
     @Override
     public String execute(List<Categories> categoriesList, String date) {
         JSONArray jsonArray = new JSONArray();
-        JSONObject jSONObject = new JSONObject();
-
 
         categoriesList.stream().forEach(categories -> {
             Gson gson = new Gson();
             String jsonString = gson.toJson(categories);
             jsonArray.put(jsonString);
         });
-        jSONObject.put("categories", jsonArray);
-
-        String jsonFormattedString = jSONObject.toString().replace("\\\"", "\"");
-        String finalJSON = jsonFormattedString.replace("\"{", "{").replace("}\"", "}");
-
+        String finalJSON = new Gson().toJson(categoriesList);
 
         try (FileWriter file = new FileWriter("data\\postgres-" + date + "-categories.json")) {
             file.write(finalJSON);
@@ -36,7 +29,6 @@ public class GenerateJsonFileCategoriesImpl implements GenerateJsonFileCategorie
         } catch (IOException e) {
             e.printStackTrace();
         }
-
         return null;
     }
 }

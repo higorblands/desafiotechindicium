@@ -7,8 +7,9 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import java.io.Serializable;
 import java.sql.Date;
+import java.io.Serializable;
+
 
 @Data
 @Builder
@@ -33,6 +34,6 @@ public class Employees implements Serializable {
     String extension;
     byte[] photo;
     String notes;
-    int reports_to;
+    String reports_to;
     String photo_path;
 }
