@@ -1,5 +1,6 @@
 package com.techindicium.desafiotechindicium.service;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mongodb.client.*;
 import com.techindicium.desafiotechindicium.models.*;
 import com.techindicium.desafiotechindicium.repository.*;
@@ -13,10 +14,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
+import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.time.LocalDate;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Scanner;
 
@@ -152,17 +153,13 @@ public class DesafioTechIndiciumService implements CommandLineRunner {
         List<Us_States> us_statesList = us_statesRepository.findAll();
         generateJsonFileUs_states.execute(us_statesList, localDate);
 
-        String file = ("data\\csv-" + localDate + "-order_details.json");
-        String json = readFileAsString(file);
-
 
         MongoClient client = MongoClients.create("mongodb://northwind_user:thewindisblowing@0.0.0.0:27017/?authSource=admin&readPreference=primary&appname=MongoDB%20Compass%20Community&ssl=false");
         MongoDatabase database = client.getDatabase("myMongoDB");
         MongoCollection<Document> dbCollection = database.getCollection("orders");
         FindIterable<Document> dbCursor = dbCollection.find();
-        Iterator it = dbCursor.iterator();
-        while (it.hasNext()) {
-            System.out.println(it.next());
+        for (Document document : dbCursor) {
+            System.out.println(document);
         }
         System.out.println("Database Connected");
 

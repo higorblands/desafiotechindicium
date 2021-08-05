@@ -4,7 +4,6 @@ import com.google.gson.Gson;
 import com.techindicium.desafiotechindicium.models.Categories;
 import com.techindicium.desafiotechindicium.usecase.GenerateJsonFileCategories;
 import lombok.SneakyThrows;
-import org.json.JSONArray;
 
 import java.io.FileWriter;
 import java.io.IOException;
@@ -14,13 +13,6 @@ public class GenerateJsonFileCategoriesImpl implements GenerateJsonFileCategorie
     @SneakyThrows
     @Override
     public String execute(List<Categories> categoriesList, String date) {
-        JSONArray jsonArray = new JSONArray();
-
-        categoriesList.stream().forEach(categories -> {
-            Gson gson = new Gson();
-            String jsonString = gson.toJson(categories);
-            jsonArray.put(jsonString);
-        });
         String finalJSON = new Gson().toJson(categoriesList);
 
         try (FileWriter file = new FileWriter("data\\postgres-" + date + "-categories.json")) {

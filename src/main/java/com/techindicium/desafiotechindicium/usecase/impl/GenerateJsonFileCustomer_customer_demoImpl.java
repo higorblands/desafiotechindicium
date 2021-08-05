@@ -4,8 +4,6 @@ import com.google.gson.Gson;
 import com.techindicium.desafiotechindicium.models.Customer_Customer_Demo;
 import com.techindicium.desafiotechindicium.usecase.GenerateJsonFileCustomer_Customer_Demo;
 import lombok.SneakyThrows;
-import org.json.JSONArray;
-import org.json.JSONObject;
 
 import java.io.FileWriter;
 import java.io.IOException;
@@ -15,13 +13,6 @@ public class GenerateJsonFileCustomer_customer_demoImpl implements GenerateJsonF
     @SneakyThrows
     @Override
     public String execute(List<Customer_Customer_Demo> customer_customer_demoList, String date) {
-        JSONArray jsonArray = new JSONArray();
-
-        customer_customer_demoList.stream().forEach(customer_customer_demo -> {
-            Gson gson = new Gson();
-            String jsonString = gson.toJson(customer_customer_demo);
-            jsonArray.put(jsonString);
-        });
         String finalJSON = new Gson().toJson(customer_customer_demoList);
 
         try (FileWriter file = new FileWriter("data\\postgres-" + date + "-customer_customer_demo.json")) {

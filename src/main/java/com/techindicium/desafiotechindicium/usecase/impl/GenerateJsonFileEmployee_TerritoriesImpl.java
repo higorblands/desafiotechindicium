@@ -4,7 +4,6 @@ import com.google.gson.Gson;
 import com.techindicium.desafiotechindicium.models.Employee_Territories;
 import com.techindicium.desafiotechindicium.usecase.GenerateJsonFileEmployee_Territories;
 import lombok.SneakyThrows;
-import org.json.JSONArray;
 
 import java.io.FileWriter;
 import java.io.IOException;
@@ -14,13 +13,6 @@ public class GenerateJsonFileEmployee_TerritoriesImpl implements GenerateJsonFil
     @SneakyThrows
     @Override
     public String execute(List<Employee_Territories> employee_territoriesList, String date) {
-        JSONArray jsonArray = new JSONArray();
-
-        employee_territoriesList.stream().forEach(employee_territories -> {
-            Gson gson = new Gson();
-            String jsonString = gson.toJson(employee_territories);
-            jsonArray.put(jsonString);
-        });
         String finalJSON = new Gson().toJson(employee_territoriesList);
 
 

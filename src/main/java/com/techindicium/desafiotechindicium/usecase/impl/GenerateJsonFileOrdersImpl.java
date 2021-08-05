@@ -4,7 +4,6 @@ import com.google.gson.Gson;
 import com.techindicium.desafiotechindicium.models.Orders;
 import com.techindicium.desafiotechindicium.usecase.GenerateJsonFileOrders;
 import lombok.SneakyThrows;
-import org.json.JSONArray;
 
 import java.io.FileWriter;
 import java.io.IOException;
@@ -14,13 +13,6 @@ public class GenerateJsonFileOrdersImpl implements GenerateJsonFileOrders {
     @SneakyThrows
     @Override
     public String execute(List<Orders> ordersList, String date) {
-        JSONArray jsonArray = new JSONArray();
-
-        ordersList.stream().forEach(orders -> {
-            Gson gson = new Gson();
-            String jsonString = gson.toJson(orders);
-            jsonArray.put(jsonString);
-        });
         String finalJSON = new Gson().toJson(ordersList);
 
 
