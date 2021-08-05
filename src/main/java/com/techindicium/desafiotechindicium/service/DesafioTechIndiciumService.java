@@ -156,6 +156,16 @@ public class DesafioTechIndiciumService implements CommandLineRunner {
         String json = readFileAsString(file);
 
 
+        MongoClient client = MongoClients.create("mongodb://northwind_user:thewindisblowing@0.0.0.0:27017/?authSource=admin&readPreference=primary&appname=MongoDB%20Compass%20Community&ssl=false");
+        MongoDatabase database = client.getDatabase("myMongoDB");
+        MongoCollection<Document> dbCollection = database.getCollection("orders");
+        FindIterable<Document> dbCursor = dbCollection.find();
+        Iterator it = dbCursor.iterator();
+        while (it.hasNext()) {
+            System.out.println(it.next());
+        }
+        System.out.println("Database Connected");
+
     }
 
     @SneakyThrows
