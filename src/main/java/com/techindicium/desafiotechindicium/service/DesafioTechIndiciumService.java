@@ -113,7 +113,7 @@ public class DesafioTechIndiciumService implements CommandLineRunner {
             resultMyAnswerDbToJson = myAnswerContinue.nextLine().toUpperCase(Locale.ROOT);
         }
         resultadoMongoDB();
-        logger.info("Resultado do Mongo gerado com sucesso na pasta mongoResult !");
+        logger.info(" #### Resultado do Mongo gerado com sucesso na pasta mongoResult ! ####");
         logger.info("Programa finalizado, obrigado !");
     }
 
