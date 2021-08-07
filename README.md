@@ -5,18 +5,25 @@ Then convert a CSV File to Json local file.
 All this will be converted to a new Database MongoDB and collections how can be made a select to Orders(Old PostgreSQL Table), Categories and others tables soon. :)
 
 # Considering that you have pre-installed these packages into your local machine:
-- Docker;
-- Git;
-- Java 11 open-jdk by RedHat; 
-- A good IDE;
+
+- Docker
+- Git
+- Java 11 suggested open-jdk by RedHat
+- Maven
+- A good IDE
 - Mongo Compass
 - DBeaver ( Recommended )
+
+#  Data used and generated data in folders
+ \data\
+ \mongoResult\
+ \dbdata - will be created
 
 ---
 
 # Proceed with these instructions:
 
-- First, use git to clone the remote project into your local machine
+1 - Use git to clone the remote project into your local machine
 
 ### git clone https://github.com/higorblands/desafiotechindicium.git
 
@@ -25,10 +32,10 @@ All this will be converted to a new Database MongoDB and collections how can be 
 
 ### docker-compose up -d [using detached mode to keep using same terminal tab]
 
-To run the project database necessary : 
+2- To run the project database necessary : 
 
-- Create PostgreSQL Database and tables, populate database with date use file in path \data\northwind. ( Because that recommend DBeaver)
-- Create MongoDB Database " myMongoDB " and collections : categories, orders. ( Recommend Mongo Compass)
+- 2.1 Create PostgreSQL Database and tables, populate database with date use file in path \data\northwind.sql ( Because that recommend DBeaver <3 )
+- 2.2 Create MongoDB Database called " myMongoDB " and collections : categories, orders ( Recommend useMongo Compass)
 
 ### If you need to change configure in your application to Dbs connect go to :
 
