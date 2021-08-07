@@ -32,7 +32,7 @@ All this will be converted to a new Database MongoDB and collections how can be 
 
 ### docker-compose up -d [using detached mode to keep using same terminal tab]
 
-2- To run the project database necessary : 
+2 - To run the project database necessary : 
 
 - 2.1 Create PostgreSQL Database and tables, populate database with date use file in path \data\northwind.sql ( Because that recommend DBeaver <3 )
 - 2.2 Create MongoDB Database called " myMongoDB " and collections : categories, orders ( Recommend useMongo Compass)
@@ -41,14 +41,16 @@ All this will be converted to a new Database MongoDB and collections how can be 
 
 - into the project src/main/resources/application.properties file;
 
+
 ### Now just run:
+3 - Run
 - With your IDE run DesafiotechindiciumApplication
 
 - Application based file in DesafioTechIndiciumService.java
 ---
 
 # If some problem ocurred during docker usage, you may use this following cmds
-
+4 - Docker helper section
 - cleanup guide - use with caution, if you have other docker images running, you may have to use 'container image' to prevent stop/removing docker images from another project.
 
 ### docker stop `docker ps -qa`
